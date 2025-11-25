@@ -390,7 +390,7 @@ export default function App() {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    if (loginPin === '1234') {
+    if (loginPin === '1213') {
       setIsCoordinator(true);
       setShowLoginModal(false);
       setActiveTab('matches');
