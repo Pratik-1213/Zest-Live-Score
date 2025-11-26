@@ -19,6 +19,7 @@ import {
   Moon,
   X,
   Flag,
+  Menu,
 } from 'lucide-react';
 
 import { initializeApp } from 'firebase/app';
@@ -308,11 +309,13 @@ export default function App() {
   const [sports, setSports] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const [theme, setTheme] = useState('light');
+  // Default to dark theme
+  const [theme, setTheme] = useState('dark');
   const [isCoordinator, setIsCoordinator] = useState(false);
   const [activeTab, setActiveTab] = useState('matches');
   const [loginPin, setLoginPin] = useState('');
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [expandedMatchId, setExpandedMatchId] = useState(null);
   const [editingMatch, setEditingMatch] = useState(null);
 
@@ -635,6 +638,16 @@ export default function App() {
       <div className="hero-gradient-bg" />
       <header className="header">
         <div className="header-content container">
+          {/* Mobile hamburger on the opposite side of ZEST LIVE */}
+          <button
+            type="button"
+            className="btn-icon show-mobile header-menu-left"
+            onClick={() => setIsMobileMenuOpen(true)}
+            aria-label="Open menu"
+          >
+            <Menu size={18} />
+          </button>
+
           <div
             className="logo-section"
             onClick={() => setActiveTab('matches')}
@@ -656,7 +669,7 @@ export default function App() {
           <div className="header-actions">
             <button
               type="button"
-              className="btn-icon"
+              className="btn-icon theme-toggle-btn"
               onClick={() =>
                 setTheme(theme === 'light' ? 'dark' : 'light')
               }
@@ -667,7 +680,7 @@ export default function App() {
             {!isCoordinator ? (
               <button
                 type="button"
-                className="btn btn-outline"
+                className="btn btn-outline hide-mobile"
                 onClick={() => setShowLoginModal(true)}
               >
                 <Shield size={16} />
@@ -676,7 +689,7 @@ export default function App() {
             ) : (
               <button
                 type="button"
-                className="btn btn-outline"
+                className="btn btn-outline hide-mobile"
                 onClick={() => setIsCoordinator(false)}
               >
                 <LogOut size={16} />
@@ -686,6 +699,127 @@ export default function App() {
           </div>
         </div>
       </header>
+
+      {isMobileMenuOpen && (
+        <div
+          className="mobile-menu-overlay"
+          onClick={() => setIsMobileMenuOpen(false)}
+        >
+          <div
+            className="mobile-menu-panel"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="mobile-menu-header">
+              <span className="mobile-menu-title">Menu</span>
+              <button
+                type="button"
+                className="btn-icon"
+                onClick={() => setIsMobileMenuOpen(false)}
+                aria-label="Close menu"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            <div className="mobile-menu-section">
+              <p className="mobile-menu-label">Appearance</p>
+              <button
+                type="button"
+                className="mobile-menu-item"
+                onClick={() =>
+                  setTheme((prev) => (prev === 'light' ? 'dark' : 'light'))
+                }
+              >
+                {theme === 'light' ? (
+                  <>
+                    <Moon size={16} />
+                    <span>Switch to dark</span>
+                  </>
+                ) : (
+                  <>
+                    <Sun size={16} />
+                    <span>Switch to light</span>
+                  </>
+                )}
+              </button>
+            </div>
+
+            <div className="mobile-menu-section">
+              <p className="mobile-menu-label">Coordinator</p>
+              {!isCoordinator ? (
+                <button
+                  type="button"
+                  className="mobile-menu-item"
+                  onClick={() => {
+                    setShowLoginModal(true);
+                    setIsMobileMenuOpen(false);
+                  }}
+                >
+                  <Shield size={16} />
+                  <span>Login as coordinator</span>
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  className="mobile-menu-item"
+                  onClick={() => {
+                    setIsCoordinator(false);
+                    setIsMobileMenuOpen(false);
+                  }}
+                >
+                  <LogOut size={16} />
+                  <span>Exit admin</span>
+                </button>
+              )}
+            </div>
+
+            {isCoordinator && (
+              <div className="mobile-menu-section">
+                <p className="mobile-menu-label">Admin</p>
+                <button
+                  type="button"
+                  className={`mobile-menu-item ${
+                    activeTab === 'matches' ? 'active' : ''
+                  }`}
+                  onClick={() => {
+                    setActiveTab('matches');
+                    setIsMobileMenuOpen(false);
+                  }}
+                >
+                  <Activity size={16} />
+                  <span>Live matches</span>
+                </button>
+                <button
+                  type="button"
+                  className={`mobile-menu-item ${
+                    activeTab === 'create' ? 'active' : ''
+                  }`}
+                  onClick={() => {
+                    setActiveTab('create');
+                    setIsMobileMenuOpen(false);
+                  }}
+                >
+                  <Calendar size={16} />
+                  <span>Create match</span>
+                </button>
+                <button
+                  type="button"
+                  className={`mobile-menu-item ${
+                    activeTab === 'sports' ? 'active' : ''
+                  }`}
+                  onClick={() => {
+                    setActiveTab('sports');
+                    setIsMobileMenuOpen(false);
+                  }}
+                >
+                  <Award size={16} />
+                  <span>Sports</span>
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
 
       {isCoordinator && (
         <div className="container">
