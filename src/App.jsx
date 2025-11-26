@@ -327,7 +327,9 @@ export default function App() {
   });
 
   useEffect(() => {
-    document.body.className = theme === 'dark' ? 'dark' : '';
+    const body = document.body;
+    body.classList.remove('light', 'dark');
+    body.classList.add(theme);
   }, [theme]);
 
   useEffect(() => {
@@ -665,7 +667,7 @@ export default function App() {
             {!isCoordinator ? (
               <button
                 type="button"
-                className="btn btn-outline hide-mobile"
+                className="btn btn-outline"
                 onClick={() => setShowLoginModal(true)}
               >
                 <Shield size={16} />
@@ -722,7 +724,7 @@ export default function App() {
         </div>
       )}
 
-      <main className="container">
+      <main className="container main-content">
         {activeTab === 'matches' && (
           <>
             {loading ? (
