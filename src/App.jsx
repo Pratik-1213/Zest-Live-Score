@@ -821,42 +821,7 @@ export default function App() {
         </div>
       )}
 
-      {isCoordinator && (
-        <div className="container">
-          <div className="nav-tabs">
-            <button
-              type="button"
-              className={`nav-tab ${
-                activeTab === 'matches' ? 'active' : ''
-              }`}
-              onClick={() => setActiveTab('matches')}
-            >
-              <Activity size={16} />
-              Live Matches
-            </button>
-            <button
-              type="button"
-              className={`nav-tab ${
-                activeTab === 'create' ? 'active' : ''
-              }`}
-              onClick={() => setActiveTab('create')}
-            >
-              <Calendar size={16} />
-              Create Match
-            </button>
-            <button
-              type="button"
-              className={`nav-tab ${
-                activeTab === 'sports' ? 'active' : ''
-              }`}
-              onClick={() => setActiveTab('sports')}
-            >
-              <Award size={16} />
-              Sports
-            </button>
-          </div>
-        </div>
-      )}
+     
 
       <main className="container main-content">
         {activeTab === 'matches' && (

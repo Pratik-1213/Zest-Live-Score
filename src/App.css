@@ -160,13 +160,8 @@ body {
   padding: 0.75rem 1rem;
 }
 
-.btn-icon, show-mobile, header-menu-left {
-  display: none;
-}
-
 .header-menu-left {
   margin-right: 0.5rem;
-
 }
 
 .logo-section {
@@ -239,6 +234,10 @@ body {
   gap: 0.8rem;
   align-items: center;
   margin-left: auto;
+}
+
+.show-mobile {
+  display: none;
 }
 
 /* Buttons */
@@ -512,7 +511,7 @@ body {
   opacity: 0.9;
   transition: all 0.3s ease;
   transform: scale(0.98);
-  padding: 1.1rem 1.4rem;
+  padding: 1.0rem 1.2rem;
   border-radius: 18px;
   background: var(--surface-panel);
   border: 1px solid var(--border);
@@ -566,9 +565,9 @@ body.dark .team-block.winning {
   display: inline-flex;
   padding: 2px 12px;
   border-radius: 999px;
-  background: rgba(13, 183, 75, 0.858);
+  background: rgba(34, 197, 94, 0.2);
   border: 1px solid rgba(34, 197, 94, 0.65);
-  color: #ffffff;
+  color: #064e3b;
   font-size: 0.72rem;
   font-weight: 800;
   text-transform: uppercase;
@@ -1056,6 +1055,7 @@ body.dark .team-block.winning {
 
 .editor-scoreboard {
   display: flex;
+  flex-direction: row;
   align-items: flex-start;
   justify-content: space-between;
   gap: 1.4rem;
@@ -1514,7 +1514,8 @@ body.dark .team-block.winning {
   }
 
   .editor-scoreboard {
-    flex-direction: column;
+    flex-direction: row;
+    gap: 1rem;
   }
 
   .squads-row {
@@ -1537,10 +1538,6 @@ body.dark .team-block.winning {
 @media (max-width: 600px) {
   .hide-mobile {
     display: none;
-  }
-.header-menu-left {
-      display: flex;
-      
   }
 
   .show-mobile {
@@ -1693,8 +1690,8 @@ body.dark .team-block.winning {
   }
 
   .editor-scoreboard {
-    flex-direction: column;
-    gap: 1.3rem;
+    flex-direction: row;
+    gap: 0.8em;
   }
 
   .vs-col {
